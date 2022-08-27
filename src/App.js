@@ -9,7 +9,7 @@ function App() {
     },
   ]);
   return (
-    <div className='container'>
+    <div>
       <input
         type='text'
         value={title}
@@ -25,11 +25,9 @@ function App() {
         추가하기
       </button>
 
-      <div className='todos-container'>
+      <div>
         {todos.map((todo) => (
-          <div className='todo' key={todo.id}>
-            {todo.title}
-          </div>
+          <div key={todo.id}>{todo.title}</div>
         ))}
       </div>
     </div>
