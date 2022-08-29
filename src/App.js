@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function App() {
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState([
     {
-      id: 1,
+      id: "",
       title: "",
       isDone: false,
     },
   ]);
+
+  const idRef = useRef(0);
 
   const doneChange = (id) => {
     const doneList = todos.map((todo) => {
@@ -34,7 +36,10 @@ function App() {
           if (title.length === 0) {
             return null;
           } else if (title.length >= 1) {
-            setTodos([...todos, { id: todos.length + 1, title: title }]);
+            setTodos([
+              ...todos,
+              { id: (idRef.current = idRef.current + 1), title: title },
+            ]);
           }
         }}
       >
