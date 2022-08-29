@@ -6,8 +6,20 @@ function App() {
     {
       id: 1,
       title: "",
+      isDone: false,
     },
   ]);
+
+  const doneChange = (id) => {
+    const doneList = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isDone = !todo.isDone;
+      }
+      return todo;
+    });
+    setTodos(doneList);
+  };
+
   return (
     <div>
       <input
@@ -19,7 +31,11 @@ function App() {
       />
       <button
         onClick={() => {
-          setTodos([...todos, { id: todos.length + 1, title: title }]);
+          if (title.length === 0) {
+            return null;
+          } else if (title.length >= 1) {
+            setTodos([...todos, { id: todos.length + 1, title: title }]);
+          }
         }}
       >
         추가하기
@@ -27,7 +43,21 @@ function App() {
 
       <div>
         {todos.map((todo) => (
-          <div key={todo.id}>{todo.title}</div>
+          <div key={todo.id}>
+            {todo.title}
+            <button
+              onClick={() => {
+                const id = todo.id;
+                setTodos(todos.filter((todo) => id !== todo.id));
+                console.log(todo.id);
+              }}
+            >
+              삭제하기
+            </button>
+            <button onClick={() => doneChange(todo.id)}>
+              {todo.isDone === true ? "취소" : "완료"}
+            </button>
+          </div>
         ))}
       </div>
     </div>
